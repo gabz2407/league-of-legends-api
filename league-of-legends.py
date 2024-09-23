@@ -1,18 +1,49 @@
-from flask import Flask, jsonify
+from flask import Flask
+import csv
 
 app = Flask(__name__)
 
-champions_json = [
-    {"name": "Jinx"},
-    {"name": "Garen"}
+champions = ['Aatrox', 'Ahri', 'Akali', 'Akshan', 'Alistar', 'Amumu', 'Anivia', 'Annie', 'Aphelios', 'Ashe',
+             'Aurelion Sol', 'Aurora', 'Azir', 'Bard', "Bel'Veth", 'Blitzcrank', 'Brand', 'Braum',
+             'Briar', 'Caitlyn', 'Camille', 'Cassiopeia', "Cho'Gath", 'Corki', 'Darius', 'Diana', 'Dr. Mundo',
+             'Draven', 'Ekko', 'Elise', 'Evelynn', 'Ezreal', 'Fiddlesticks', 'Fiora', 'Fizz', 'Galio',
+             'Gangplank', 'Garen', 'Gnar', 'Gragas', 'Graves', 'Gwen', 'Hecarim', 'Heimerdinger', 'Hwei',
+             'Illaoi', 'Irelia', 'Ivern', 'Janna', 'Jarvan IV', 'Jax', 'Jayce', 'Jhin', 'Jinx', "K'Sante",
+             "Kai'sa", 'Kalista', 'Karma', 'Khartus', 'Kassadin', 'Katarina', 'Kayle', 'Kayn', 'Kennen',
+             "Kha'zix", 'Kindred', 'Kled', "Kog'Maw", 'LeBlanc', 'Lee Sin', 'Leona', 'Lillia', 'Lissandra',
+             'Lucian', 'Lulu', 'Lux', 'Malphite', 'Malzahar', 'Maokai', 'Master Yi', 'Milio',
+             'Miss Fortune', 'Mordekaiser', 'Morgana', 'Naafiri', 'Nami', 'Nasus', 'Nautilus',
+             'Neeko', 'Nidalee', 'Nilah', 'Nocturne', 'Nunu & Willump', 'Olaf', 'Orianna', 'Ornn', 'Pantheon',
+             'Poppy', 'Pyke', 'Qiyana', 'Quinn', 'Rakan', 'Rammus', "Rek'Sai", 'Rell', 'Renata Glasc', 'Renekton',
+             'Rengar', 'Riven', 'Rumble', 'Ryze', 'Samira', 'Sejuani', 'Senna', 'Seraphine', 'Sett', 'Shaco',
+             'Shen', 'Shyvana', 'Singed', 'Sion', 'Sivir', 'Skarner', 'Smolder', 'Sona', 'Soraka', 'Swain',
+             'Sylas', 'Syndra', 'Tahm Kench', 'Taliyah', 'Talon', 'Taric', 'Teemo', 'Thresh', 'Tristana', 'Trundle',
+             'Tryndamere', 'Twisted Fate', 'Twitch', 'Udyr', 'Urgot', 'Varus', 'Vayne', 'Veigar',
+             "Vel'Koz", 'Vex', 'Vi', 'Viego', 'Viktor', 'Vladimir', 'Volibear', 'Warwick', 'Wukong',
+             'Xayah', 'Xerath', 'Xin Zhao', 'Yasuo', 'Yone', 'Yorick', 'Yuumi', 'Zac', 'Zed', 'Zeri', 'Ziggs',
+             'Zilean', 'Zoe', 'Zyra']
+
+champion_data = [
+    {'champion': champion,
+     # 'title': title, 'skins': {'name', 'image'}}
+     }
+    for champion in zip(champions)
 ]
 
+keys = ['champion', 'title', 'skins', 'abilities', 'passive']
 
-@app.get("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+with open('lol_api.csv', 'w+') as csv_file:
+   spreadsheet = csv.DictWriter(csv_file, fieldnames=keys)
+   spreadsheet.writeheader()
+   spreadsheet.writerows(champion_data)
 
 
-@app.get("/champions")
-def champions():
-    return champions_json
+
+# @app.get("/")
+# def hello_world():
+#     return "<p>Hello, World!</p>"
+#
+#
+# @app.get("/champions")
+# def champions():
+#     return champions_json
